@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资料索引 · 爱游戏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', 'Noto Serif SC', serif;
+            background: linear-gradient(145deg, #fbe9d7 0%, #f5d0b0 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.7;
+            color: #2e241e;
+        }
+
+        .page-wrapper {
+            max-width: 820px;
+            width: 100%;
+            background: #fffcf6;
+            border-radius: 40px 40px 28px 28px;
+            box-shadow: 0 12px 28px rgba(140, 85, 50, 0.12);
+            padding: 2.5rem 2.2rem;
+            transition: box-shadow 0.25s ease;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            .page-wrapper {
+                padding: 1.8rem 1.2rem;
+                border-radius: 28px;
+            }
+        }
+
+        /* 篇首区 – 温和标题 + 导语 */
+        .blog-head {
+            margin-bottom: 2.2rem;
+            border-bottom: 1px solid #eddccb;
+            padding-bottom: 1.6rem;
+        }
+
+        .blog-head h1 {
+            font-size: 2.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #4f3323;
+            margin-bottom: 0.4rem;
+        }
+
+        .blog-head h1 small {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #8b6f5b;
+            margin-left: 0.6rem;
+            letter-spacing: 0.2px;
+        }
+
+        .subhead {
+            font-size: 1.05rem;
+            color: #6f5644;
+            border-left: 3px solid #dbb48b;
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* 正文区 – 多段自然行文 */
+        .content p {
+            margin: 1.2rem 0;
+            text-align: justify;
+            word-break: break-word;
+        }
+
+        .content p:first-of-type {
+            margin-top: 0.2rem;
+        }
+
+        /* 引用块 – 柔和提示 */
+        .insight-block {
+            background: #f9f1e9;
+            border-radius: 24px;
+            padding: 1.5rem 1.8rem;
+            margin: 1.8rem 0;
+            box-shadow: inset 0 1px 4px rgba(150, 100, 70, 0.06);
+            border-left: 6px solid #c79872;
+        }
+
+        .insight-block p {
+            margin: 0.4rem 0;
+            font-size: 0.98rem;
+            color: #3b2b21;
+        }
+
+        .insight-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #a17b61;
+            margin-bottom: 0.5rem;
+            background: #ede0d3;
+            padding: 0.15rem 1rem;
+            border-radius: 30px;
+        }
+
+        /* 特色列表 – 卡片感但保持简洁 */
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2rem 0 1.4rem 0;
+        }
+
+        .feat-item {
+            flex: 1 1 190px;
+            background: #f8efe7;
+            padding: 1.3rem 1rem;
+            border-radius: 28px;
+            text-align: center;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 2px 8px rgba(120, 70, 40, 0.06);
+        }
+
+        .feat-item .emoji-bg {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 0.3rem;
+            opacity: 0.7;
+        }
+
+        .feat-item .feat-title {
+            font-weight: 600;
+            color: #4d3526;
+            font-size: 1rem;
+        }
+
+        .feat-item .feat-desc {
+            font-size: 0.9rem;
+            color: #6a5543;
+            margin-top: 0.2rem;
+        }
+
+        @media (max-width: 480px) {
+            .feature-grid {
+                flex-direction: column;
+            }
+        }
+
+        /* FAQ 摘要 – 折叠形态 */
+        .faq-mini {
+            margin-top: 2.2rem;
+            border-top: 1px dashed #dac9bb;
+            padding-top: 1.8rem;
+        }
+
+        .faq-mini h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #4d3526;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .qa-pair {
+            margin-bottom: 1rem;
+        }
+
+        .qa-q {
+            font-weight: 600;
+            color: #5b3f2f;
+            background: #f2e6db;
+            display: inline-block;
+            padding: 0.2rem 1rem 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .qa-a {
+            padding-left: 0.5rem;
+            color: #3f2f24;
+            font-size: 0.96rem;
+        }
+
+        /* 访问句 + 链接按钮感 */
+        .visit-sentence {
+            margin: 2.2rem 0 0.8rem 0;
+            background: #f4e8dd;
+            padding: 1.3rem 1.8rem;
+            border-radius: 60px;
+            display: inline-block;
+            width: auto;
+            font-size: 1.05rem;
+            color: #2b1e16;
+            box-shadow: 0 4px 0 #d3b8a3;
+            transition: box-shadow 0.1s, transform 0.1s;
+            line-height: 1.5;
+        }
+
+        .visit-sentence a {
+            color: #5c3822;
+            text-decoration: none;
+            font-weight: 600;
+            background: #fefaf5;
+            padding: 0.1rem 0.9rem;
+            border-radius: 40px;
+            display: inline-block;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 1px 4px rgba(100, 60, 30, 0.1);
+            white-space: nowrap;
+        }
+
+        .visit-sentence a:hover {
+            background: #dbbfaa;
+            color: #2a1a10;
+        }
+
+        .footer-note {
+            margin-top: 2.5rem;
+            text-align: right;
+            font-size: 0.8rem;
+            color: #9b8574;
+            border-top: 1px solid #e5d6c8;
+            padding-top: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-note span {
+            background: #efe2d6;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- 标题 / 导语 -->
+    <div class="blog-head">
+        <h1>资料索引手记 <small>· 爱游戏</small></h1>
+        <div class="subhead">在信息浪潮里，安静地整理一份关于游戏的线索簿</div>
+    </div>
+
+    <!-- 正文段落：从信息整理切入 -->
+    <div class="content">
+
+        <p>近些年接触的游戏越来越多，但真正值得反复回味的作品，往往不是那些声光最绚丽的，而是那些在叙事、机制或情感上留下清晰刻痕的。我开始试着将零散的体验拆解成可溯源的条目——开发背景、设计思路、社区讨论，甚至某个关卡背后的文化隐喻。这种整理不是为了穷尽，而是为了在需要时能快速找到那个曾经打动自己的片段。</p>
+
+        <p>在翻阅大量评测、访谈与开发日志后，我发现一个现象：许多优质的游戏内容其实分散在个人博客、小型论坛或冷门播客里，缺乏统一的索引。于是便萌生了做一个轻量资料汇集点的想法，不追求流量，只希望为同样喜欢细致了解游戏的朋友提供一个安静的起点。<a href="https://zho-site-aiyouxi.com">爱游戏</a>就是在这个背景下慢慢成型的——它更像一个私人书架，只是恰好开放给路过的人。</p>
+
+        <div class="insight-block">
+            <div class="insight-label">📌 整理者的提示</div>
+            <p>每一篇收录的文章或条目，都尽量附上来源与简短摘要。如果你发现链接失效或信息有误，欢迎悄悄提醒我。索引的生命力在于持续校准，而不是一次性的罗列。</p>
+        </div>
+
+        <p>从资料整理的角度看，游戏不仅仅是一种娱乐媒介，它也是一种复合的创作形态——程序、美术、音乐、叙事、交互设计交织在一起。我在整理时常会惊叹于某个独立团队如何在极有限的资源下做出充满巧思的系统。这些记录不仅是对作品的尊重，也是对自己好奇心的回应。</p>
+
+        <!-- 卡片式特点 (非推销, 而是索引特点) -->
+        <div class="feature-grid">
+            <div class="feat-item">
+                <span class="emoji-bg">📇</span>
+                <div class="feat-title">按作品归档</div>
+                <div class="feat-desc">每款游戏独立页面，汇集评测、解析与幕后</div>
+            </div>
+            <div class="feat-item">
+                <span class="emoji-bg">🔖</span>
+                <div class="feat-title">标签检索</div>
+                <div class="feat-desc">题材、机制、年代、开发者等多维筛选</div>
+            </div>
+            <div class="feat-item">
+                <span class="emoji-bg">📎</span>
+                <div class="feat-title">外部引用</div>
+                <div class="feat-desc">尽量链接到原文、播客或视频，保持透明</div>
+            </div>
+        </div>
+
+        <p>当然，索引本身也有局限性。有些体验是无法被文字或标签捕捉的——比如第一次踏入某个世界的震撼，或者在某些场景里突然感受到的孤独。但这些恰好是索引之外的空间，留给每个玩家自己去填充。我希望这个站点能成为进入那些体验的一张便签，而不是替代品。</p>
+    </div>
+
+    <!-- 访问句 (自然嵌入链接, 不使用进入/点击等词) -->
+    <div class="visit-sentence">
+        💡 如果你也喜欢这样的整理方式，不妨去 <a href="https://zho-site-aiyouxi.com">爱游戏</a> 逛逛，那里存放着一些筛选过的记录和灵感。
+    </div>
+
+    <!-- FAQ 摘要 → 常见疑问片段 -->
+    <div class="faq-mini">
+        <h3>❓ 一些你可能想知道的</h3>
+        <div class="qa-pair">
+            <div class="qa-q">这里的资料多久更新一次？</div>
+            <div class="qa-a">不固定，但每个月至少会补充一两个条目。更新会写在站内日志里。</div>
+        </div>
+        <div class="qa-pair">
+            <div class="qa-q">可以提交自己整理的内容吗？</div>
+            <div class="qa-a">欢迎，但目前只接受具有明确来源且非侵权的推荐。可以联系站内邮箱。</div>
+        </div>
+        <div class="qa-pair">
+            <div class="qa-q">页面上的链接会失效吗？</div>
+            <div class="qa-a">偶尔会，我会定期检查并标注失效链接，尽量提供存档或替代来源。</div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+        <span>随笔·索引·爱游戏</span>
+    </div>
+
+</div>
+</body>
+</html>
